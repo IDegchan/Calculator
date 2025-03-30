@@ -30,3 +30,6 @@ def test_errors():
     assert button_press("0/", "=") == "Помилка :("
     assert button_press("0^", "=") == "Помилка :("
     assert button_press("^0", "=") == "Помилка :("
+
+def test_advanced():
+    assert button_press("π", "=") == "3.141592653589793"

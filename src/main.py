@@ -1,4 +1,6 @@
 import flet as ft
+import random
+import math
 
 
 def button_press(expression, button):
@@ -6,7 +8,15 @@ def button_press(expression, button):
         expression = "0"
     elif button == "=":
         try:
-            expression = str(eval(expression.replace("^", "**")))
+            expression = expression.replace("^", "**")
+            expression = expression.replace("π", f"{math.pi}")
+            expression = expression.replace("e", f"{math.e}")
+            expression = expression.replace("rand", f"{random.randint(1, 1000)}")
+            expression = expression.replace("tan", f"{math.tan}")
+            expression = expression.replace("cos", f"{math.cos}")
+            expression = expression.replace("sin", f"{math.sin}")
+            expression = expression.replace("factorial", f"{math.factorial}")
+            expression = str(eval(expression))
         except Exception:
             expression = "Помилка :("
     elif button == "R":
@@ -41,6 +51,11 @@ def calculator(page: ft.Page):
         ["4", "5", "6", "-"],
         ["1", "2", "3", "+"],
         ["0", ".", "B", "="],
+    ]
+    advanced_buttons = [
+        ["π", "e", "rand"],
+        ["tan", "sin", "cos"],
+        ["factorial", "(", ")"],
     ]
 
     def on_click(e, display, page):
@@ -126,7 +141,7 @@ def calculator(page: ft.Page):
                                     alignment=ft.MainAxisAlignment.CENTER,
                                     wrap=False,
                                 )
-                                for row in buttons
+                                for row in advanced_buttons
                             ],
                             alignment=ft.MainAxisAlignment.CENTER,
                         ),
@@ -147,3 +162,4 @@ def calculator(page: ft.Page):
 
 if __name__ == "__main__":
     ft.app(target=calculator)
+
