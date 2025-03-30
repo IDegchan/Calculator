@@ -28,7 +28,43 @@ def button_press(expression, button):
     return expression
 
 
-def calculator(page: ft.Page):
+def on_click(e, display, page):
+    display.value = button_press(display.value, e.control.data)
+    page.update()
+
+
+def create_button(text, display, page, *args, **kwargs):
+    button = ft.ElevatedButton(
+        text=text,
+        data=text,
+        on_click=lambda e: on_click(e, display, page),
+        width=80,
+        height=80,
+        *args,
+        **kwargs,
+    )
+    if text == "B":
+        button.content = ft.Icon(
+            name=ft.Icons.BACKSPACE, color=ft.Colors.BLACK, size=18
+        )
+        button.text = None
+    elif text == "R":
+        button.content = ft.Icon(name=ft.Icons.REPLAY, color=ft.Colors.WHITE, size=18)
+        button.text = None
+
+    if text in ("+", "-", "*", "/", "="):
+        button.bgcolor = ft.Colors.ORANGE
+        button.color = ft.Colors.WHITE
+    elif text in ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "B"):
+        button.bgcolor = ft.Colors.WHITE
+        button.color = ft.Colors.BLACK
+    else:
+        button.bgcolor = ft.Colors.GREY
+        button.color = ft.Colors.WHITE
+    return button
+
+
+def main(page: ft.Page):
     page.title = "Калькулятор"
     page.theme_mode = ft.ThemeMode.LIGHT
     page.window.resizable = False
@@ -43,52 +79,6 @@ def calculator(page: ft.Page):
         ["0", ".", "B", "="],
     ]
 
-    def on_click(e):
-        display.value = button_press(display.value, e.control.data)
-        page.update()
-
-    def create_button(text, *args, **kwargs):
-        button = ft.ElevatedButton(
-            text=text,
-            data=text,
-            on_click=on_click,
-            width=80,
-            height=80,
-            *args,
-            **kwargs,
-        )
-        if text in ("R", "B"):
-            if text == "B":
-                button = ft.IconButton(
-                    icon=ft.Icons.BACKSPACE,
-                    data=text,
-                    on_click=on_click,
-                    width=80,
-                    height=80,
-                )
-                button.icon_color = ft.Colors.BLACK
-            else:
-                button = ft.IconButton(
-                    icon=ft.Icons.REPLAY,
-                    data=text,
-                    on_click=on_click,
-                    width=80,
-                    height=80,
-                )
-                button.icon_color = ft.Colors.WHITE
-            button.icon_size = 18
-
-        if text in ("+", "-", "*", "/", "="):
-            button.bgcolor = ft.Colors.ORANGE
-            button.color = ft.Colors.WHITE
-        elif text in ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "B"):
-            button.bgcolor = ft.Colors.WHITE
-            button.color = ft.Colors.BLACK
-        else:
-            button.bgcolor = ft.Colors.GREY
-            button.color = ft.Colors.WHITE
-        return button
-
     page.appbar = ft.AppBar(title=ft.Text("Калькулятор", size=24, weight="bold"))
 
     page.add(
@@ -96,7 +86,7 @@ def calculator(page: ft.Page):
             [display, ft.Divider(height=10)]
             + [
                 ft.Row(
-                    [create_button(char) for char in row],
+                    [create_button(char, display, page) for char in row],
                     alignment=ft.MainAxisAlignment.CENTER,
                     wrap=False,
                 )
@@ -108,4 +98,4 @@ def calculator(page: ft.Page):
 
 
 if __name__ == "__main__":
-    ft.app(target=calculator)
+    ft.app(target=main)

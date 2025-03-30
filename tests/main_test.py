@@ -1,4 +1,4 @@
-from src.main import button_press
+from src.main import button_press # type: ignore
 
 def test_buttons():
     assert button_press("10", "AC") == "0"
