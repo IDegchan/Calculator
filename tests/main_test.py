@@ -1,9 +1,11 @@
 from src.main import button_press # type: ignore
+import math
 
 def test_buttons():
     assert button_press("10", "AC") == "0"
     assert button_press("7", "R")   == "-7"
     assert button_press("10", "B")  == "1"
+    assert button_press("5", "0")   == "50"
     assert button_press("0", "1")   == "1"
     assert button_press("3", "2")   == "32"
     assert button_press("5", "3")   == "53"
@@ -33,3 +35,8 @@ def test_errors():
 
 def test_advanced():
     assert button_press("π", "=") == "3.141592653589793"
+    assert button_press("e", "=") == "2.718281828459045"
+    assert button_press("tan(7)", "=") == f"{math.tan(7)}"
+    assert button_press("cos(2)", "=") == f"{math.cos(2)}"
+    assert button_press("sin(6)", "=") == f"{math.sin(6)}"
+    assert button_press("factorial(5)", "=") == f"{math.factorial(5)}"

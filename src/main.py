@@ -9,13 +9,13 @@ def button_press(expression, button):
     elif button == "=":
         try:
             expression = expression.replace("^", "**")
-            expression = expression.replace("π", f"{math.pi}")
-            expression = expression.replace("e", f"{math.e}")
-            expression = expression.replace("rand", f"{random.randint(1, 1000)}")
-            expression = expression.replace("tan", f"{math.tan}")
-            expression = expression.replace("cos", f"{math.cos}")
-            expression = expression.replace("sin", f"{math.sin}")
-            expression = expression.replace("factorial", f"{math.factorial}")
+            expression = expression.replace("π", "math.pi")
+            expression = expression.replace("e", "math.e")
+            expression = expression.replace("random", "random.randint(1, 1000)")
+            expression = expression.replace("tan", "math.tan")
+            expression = expression.replace("cos", "math.cos")
+            expression = expression.replace("sin", "math.sin")
+            expression = expression.replace("factorial", f"math.factorial")
             expression = str(eval(expression))
         except Exception:
             expression = "Помилка :("
