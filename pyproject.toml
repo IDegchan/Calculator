@@ -1,7 +1,7 @@
 [project]
 name = "calculator"
-version = "0.1.0"
-description = "A simle calculator for event"
+version = "1.0.0"
+description = "A simle calculator"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
