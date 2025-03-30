@@ -14,4 +14,5 @@ uv tool update-shell
 
 ### Запуск
 Для запуску программи введіть: `uv run src/main.py`
+
 Для запуску тестів введіть: `uv tool run tox -q`
