@@ -1,0 +1,9 @@
+[project]
+name = "calculator"
+version = "0.1.0"
+description = "A simle calculator for event"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "flet>=0.27.6",
+]
